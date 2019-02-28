@@ -79,6 +79,7 @@ def do_something(env):
                 slide = dict()
                 slide['photos'] = list()
                 slide['photos'].append(top_photo)
+                env['photos'].remove(top_photo)
                 env['slides'].append(slide)
                 break
 
