@@ -3,6 +3,7 @@ from outblc import write_output
 import sys
 import os
 import pprint
+import common
 
 
 def do_something(env):
