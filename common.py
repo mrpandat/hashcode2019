@@ -5,12 +5,17 @@ def calc_score(photo1, photo2):
     if (photo1['id'] == photo2['id']):
         return 0
 
-    common_els = np.intersect1d(photo1['tags'], photo2['tags'], True).shape[0]
-    uncommon_els1 = np.setdiff1d(photo1['tags'], photo2['tags'], True).shape[0]
-    uncommon_els2 = np.setdiff1d(photo2['tags'], photo1['tags'],    True).shape[0]
+    common_els = np.intersect1d(photo1['tags'], photo2['tags'], True).size
+
+    if (common_els == 0):
+        return 0
+    uncommon_els1 = np.setdiff1d(photo1['tags'], photo2['tags'], True).size
+
+    if (uncommon_els1 == 0):
+        return 0
+    uncommon_els2 = np.setdiff1d(photo2['tags'], photo1['tags'], True).size
 
     return min([common_els, uncommon_els1, uncommon_els2])
-
 
 
 def get_slide_tags(slide):
