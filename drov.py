@@ -31,9 +31,9 @@ def calc_score(photo1, photo2):
     if (photo1['id'] == photo2['id']):
         return 0
 
-    common_els = np.intersect1d(photo1['tags'], photo2['tags']).shape[0]
-    uncommon_els1 = np.setdiff1d(photo1['tags'], photo2['tags']).shape[0]
-    uncommon_els2 = np.setdiff1d(photo2['tags'], photo1['tags']).shape[0]
+    common_els = np.intersect1d(photo1['tags'], photo2['tags'], True).shape[0]
+    uncommon_els1 = np.setdiff1d(photo1['tags'], photo2['tags'], True).shape[0]
+    uncommon_els2 = np.setdiff1d(photo2['tags'], photo1['tags'],    True).shape[0]
 
     return min([common_els, uncommon_els1, uncommon_els2])
 
@@ -47,7 +47,7 @@ def do_something(env):
     for photo1 in env['photos']:
         print(photo1["id"])
         top_score = 0
-        top_photo = [];
+        top_photo = []
 
         slide['photos'].append(photo1)
 
@@ -60,6 +60,10 @@ def do_something(env):
             if score > top_score:
                 top_score = score
                 top_photo = photo2
+
+
+
+
 
         slide['photos'].append(top_photo)
 
