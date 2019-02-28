@@ -41,26 +41,23 @@ def calc_score(photo1, photo2):
 
 
 def do_something(env):
-    photos_sorted = sort_orientation(env['photos'])
-
-    slide = dict()
-    slide['photos'] = list()
-
-    used = []
-
-    i = 0
 
     for photo1 in env['photos']:
-        if photo1["id"] % 100 == 0:
+        if photo1['direction'] == 'V':
+            continue
+        slide = dict()
+        slide['photos'] = list()
+        if photo1["id"] % 1000 == 0:
             print(photo1["id"])
         top_score = 0
         top_photo = []
 
         slide['photos'].append(photo1)
-
+        i = 0
         for photo2 in env['photos']:
 
-
+            if photo2['direction'] == 'V':
+                continue
             if photo1['id'] == photo2['id']:
                 continue
 
@@ -72,25 +69,32 @@ def do_something(env):
                 top_score = score
                 top_photo = photo2
 
-            if (i > 100):
+            if (top_score > 0):
                 if (top_photo == []):
                     top_photo = photo2
+                slide = dict()
+                slide['photos'] = list()
                 slide['photos'].append(top_photo)
-                env['photos'].remove(top_photo)
-                i = 0
+                #env['photos'].remove(top_photo)
+                env['slides'].append(slide)
                 break
 
-    env['slides'].append(slide)
 
     return env
 
-
+'''
 dirs = os.listdir("input")
-# for file in dirs:
-env = read_input('input/b_lovely_landscapes.txt')
-filename = ["b_lovely_landscapes"]
-env = do_something(env)
-write_output('output/' + filename[0] + ".out", env)
-print("done")
+for file in dirs:
+    env = read_input('input/' + file)
+    filename = file.split('.')
+    env = do_something(env)
+    write_output('output/' + filename[0] + ".out", env)
 
+'''
+
+
+env = read_input('input/a_example.txt')
+filename ="a_example"
+env = do_something(env)
+write_output('output/a_example.out', env)
 
