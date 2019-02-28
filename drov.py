@@ -45,7 +45,7 @@ def do_something(env):
     slide['photos'] = list()
 
     for photo1 in env['photos']:
-
+        print(photo1["id"])
         top_score = 0
         top_photo = [];
 
