@@ -7,10 +7,11 @@ import pprint
 
 def do_something(env):
     for photo in env['photos']:
-        slide = dict()
-        slide['photos'] = list()
-        slide['photos'].append(photo['id'])
-        env['slides'].append(slide)
+        if photo['direction'] == 'H':
+            slide = dict()
+            slide['photos'] = list()
+            slide['photos'].append(photo)
+            env['slides'].append(slide)
     # pprint.pprint(env)
     return env
 
