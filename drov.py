@@ -37,6 +37,7 @@ def calc_score(photo1, photo2):
 
     uncommon_els2 = np.setdiff1d(photo2['tags'], photo1['tags'], True).size
 
+
     return min([common_els, uncommon_els1, uncommon_els2])
 
 
@@ -47,12 +48,15 @@ def do_something(env):
             continue
         slide = dict()
         slide['photos'] = list()
-        if photo1["id"] % 1000 == 0:
-            print(photo1["id"])
+        print(photo1["id"])
         top_score = 0
         top_photo = []
 
+        if photo1["id"] > 1000:
+            break
+
         slide['photos'].append(photo1)
+        env['slides'].append(slide)
         i = 0
         for photo2 in env['photos']:
 
@@ -75,13 +79,13 @@ def do_something(env):
                 slide = dict()
                 slide['photos'] = list()
                 slide['photos'].append(top_photo)
-                #env['photos'].remove(top_photo)
                 env['slides'].append(slide)
                 break
 
 
     return env
 
+'''
 dirs = os.listdir("input")
 for file in dirs:
     env = read_input('input/' + file)
@@ -89,5 +93,11 @@ for file in dirs:
     env = do_something(env)
     write_output('output/' + filename[0] + ".out", env)
 
+'''
 
+
+env = read_input('input/b_lovely_landscapes.txt')
+filename ="b_lovely_landscapes."
+env = do_something(env)
+write_output('output/b_lovely_landscapes.out', env)
 
