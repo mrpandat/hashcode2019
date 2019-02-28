@@ -44,6 +44,10 @@ def do_something(env):
     slide = dict()
     slide['photos'] = list()
 
+    used = []
+
+    i = 0
+
     for photo1 in env['photos']:
         print(photo1["id"])
         top_score = 0
@@ -52,8 +56,12 @@ def do_something(env):
         slide['photos'].append(photo1)
 
         for photo2 in env['photos']:
+
+
             if photo1['id'] == photo2['id']:
                 continue
+
+            i = i + 1
 
             score = calc_score(photo1, photo2)
 
@@ -61,11 +69,13 @@ def do_something(env):
                 top_score = score
                 top_photo = photo2
 
-
-
-
-
-        slide['photos'].append(top_photo)
+            if (i > 1000):
+                if (top_photo == []):
+                    top_photo = photo2
+                slide['photos'].append(top_photo)
+                env['photos'].remove(top_photo)
+                i = 0
+                break
 
     env['slides'].append(slide)
 
